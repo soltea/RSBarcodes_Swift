@@ -16,6 +16,7 @@ class ViewController: RSCodeReaderViewController {
     
     @IBAction func close(sender: AnyObject?) {
         println("close called.")
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     @IBAction func toggle(sender: AnyObject?) {
@@ -43,14 +44,21 @@ class ViewController: RSCodeReaderViewController {
             println(point)
         }
         
-        barcodesHandler = { barcodes in
+        barcodesHandler = { [unowned self] barcodes in
             for barcode in barcodes {
                 println(barcode)
+                // Add logic here to find the certain barcode you are looking for
+                // Store in somewhere or notify other controller to update UI
+//                let object: AVMetadataMachineReadableCodeObject = barcode
+//                NSUserDefaults.standardUserDefaults().setObject(object.type, forKey: "type")
+//                NSUserDefaults.standardUserDefaults().setObject(object.stringValue, forKey: "value")
+//                NSNotificationCenter.defaultCenter().postNotificationName("BarcodeDidFind", object: barcode)
+                self.dismissViewControllerAnimated(true, completion: nil)
+                break
             }
         }
         
         let types = NSMutableArray(array: output.availableMetadataObjectTypes)
-        types.removeObject(AVMetadataObjectTypeQRCode)
         output.metadataObjectTypes = NSArray(array: types)
         
         // MARK: NOTE: If you layout views in storyboard, you should these 3 lines
