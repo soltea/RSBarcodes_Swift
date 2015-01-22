@@ -49,11 +49,23 @@ class ViewController: RSCodeReaderViewController {
                 println(barcode)
                 // Add logic here to find the certain barcode you are looking for
                 // Store in somewhere or notify other controller to update UI
-//                let object: AVMetadataMachineReadableCodeObject = barcode
-//                NSUserDefaults.standardUserDefaults().setObject(object.type, forKey: "type")
-//                NSUserDefaults.standardUserDefaults().setObject(object.stringValue, forKey: "value")
+                
+                let object: AVMetadataMachineReadableCodeObject = barcode
+                NSUserDefaults.standardUserDefaults().setObject(object.type, forKey: "type")
+                NSUserDefaults.standardUserDefaults().setObject(object.stringValue, forKey: "value")
+                NSUserDefaults.standardUserDefaults().synchronize()
+                
 //                NSNotificationCenter.defaultCenter().postNotificationName("BarcodeDidFind", object: barcode)
-                self.dismissViewControllerAnimated(true, completion: nil)
+                
+                self.dismissViewControllerAnimated(true, completion: { () -> Void in
+                    if let w = UIApplication.sharedApplication().keyWindow {
+                        let n: UINavigationController = w.rootViewController as UINavigationController
+                        if let s = n.storyboard {
+                            let c = s.instantiateViewControllerWithIdentifier("CODE") as UIViewController
+                            n.pushViewController(c, animated: true)
+                        }
+                    }
+                })
                 break
             }
         }

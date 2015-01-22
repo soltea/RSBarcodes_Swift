@@ -54,6 +54,24 @@
             </objects>
             <point key="canvasLocation" x="253" y="222"/>
         </scene>
+        <!--CODE-->
+        <scene sceneID="ZyX-Dc-CMQ">
+            <objects>
+                <viewController storyboardIdentifier="CODE" title="CODE" id="fm2-9Q-KvG" customClass="CodeViewController" customModule="RSBarcodesSample" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="3tb-ep-mPY"/>
+                        <viewControllerLayoutGuide type="bottom" id="ayD-G5-Z5q"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="DLf-x9-nkN">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lz1-Qo-F1E" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="253" y="-590"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
