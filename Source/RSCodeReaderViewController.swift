@@ -54,20 +54,18 @@ public class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutp
             tapPoint.x / self.view.bounds.size.width,
             tapPoint.y / self.view.bounds.size.height)
         
-        if device == nil
-            || !device.focusPointOfInterestSupported
-            || !device.isFocusModeSupported(.AutoFocus) {
-                return
-        } else if device.lockForConfiguration(nil) {
-            device.focusPointOfInterest = focusPoint
-            device.focusMode = .AutoFocus
-            device.unlockForConfiguration()
-            
-            focusMarkLayer.point = tapPoint
-            
-            if tapHandler != nil {
-                tapHandler!(tapPoint)
-            }
+        if device != nil
+            && device.focusPointOfInterestSupported
+            && device.isFocusModeSupported(.ContinuousAutoFocus)
+            && device.lockForConfiguration(nil) {
+                device.focusPointOfInterest = focusPoint
+                device.focusMode = .ContinuousAutoFocus
+                device.unlockForConfiguration()
+                focusMarkLayer.point = tapPoint
+        }
+        
+        if tapHandler != nil {
+            tapHandler!(tapPoint)
         }
     }
     
@@ -110,6 +108,13 @@ public class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutp
         if error != nil {
             println(error!.description)
             return
+        }
+        
+        if device != nil
+            && device.isFocusModeSupported(.ContinuousAutoFocus)
+            && device.lockForConfiguration(nil) {
+                device.focusMode = .ContinuousAutoFocus
+                device.unlockForConfiguration()
         }
         
         if session.canAddInput(input) {
