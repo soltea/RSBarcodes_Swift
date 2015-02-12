@@ -22,6 +22,10 @@ public class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutp
     public var tapHandler: ((CGPoint) -> Void)?
     public var barcodesHandler: ((Array<AVMetadataMachineReadableCodeObject>) -> Void)?
     
+    public var isCrazyMode = true
+    var isCrazyModeStarted = false
+    var currentLensPosition: Float = 0
+    
     var validator: NSTimer?
     
     // MARK: Private methods
@@ -48,6 +52,21 @@ public class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutp
         cornersLayer.cornersArray = []
     }
     
+    func setFocusModeLockedWithLensPosition() {
+        self.currentLensPosition += 0.01
+        if self.currentLensPosition > 1 {
+            self.currentLensPosition = 0
+        }
+        if device.lockForConfiguration(nil) {
+            self.device.setFocusModeLockedWithLensPosition(self.currentLensPosition, completionHandler: nil)
+            device.unlockForConfiguration()
+        }
+        let when = dispatch_time(DISPATCH_TIME_NOW, Int64(10 * Double(USEC_PER_SEC)))
+        dispatch_after(when, dispatch_get_main_queue(), {
+            self.setFocusModeLockedWithLensPosition()
+        })
+    }
+    
     func onTap(gesture: UITapGestureRecognizer) {
         let tapPoint = gesture.locationInView(self.view)
         let focusPoint = CGPointMake(
@@ -55,11 +74,31 @@ public class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutp
             tapPoint.y / self.view.bounds.size.height)
         
         if device != nil
-            && device.focusPointOfInterestSupported
-            && device.isFocusModeSupported(.ContinuousAutoFocus)
             && device.lockForConfiguration(nil) {
-                device.focusPointOfInterest = focusPoint
-                device.focusMode = .ContinuousAutoFocus
+                if device.focusPointOfInterestSupported {
+                    device.focusPointOfInterest = focusPoint
+                }
+                if self.isCrazyMode {
+                    if device.isFocusModeSupported(.Locked) {
+                        device.focusMode = .Locked
+                    }
+                    
+                    if !self.isCrazyModeStarted {
+                        self.isCrazyModeStarted = true
+                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                            self.setFocusModeLockedWithLensPosition()
+                        })
+                    }
+                } else {
+                    if device.isFocusModeSupported(.ContinuousAutoFocus) {
+                        device.focusMode = .ContinuousAutoFocus
+                    } else if device.isFocusModeSupported(.AutoFocus) {
+                        device.focusMode = .AutoFocus
+                    }
+                }
+                if device.autoFocusRangeRestrictionSupported {
+                    device.autoFocusRangeRestriction = .None
+                }
                 device.unlockForConfiguration()
                 focusMarkLayer.point = tapPoint
         }
@@ -111,9 +150,13 @@ public class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutp
         }
         
         if device != nil
-            && device.isFocusModeSupported(.ContinuousAutoFocus)
             && device.lockForConfiguration(nil) {
-                device.focusMode = .ContinuousAutoFocus
+                if device.isFocusModeSupported(.ContinuousAutoFocus) {
+                    device.focusMode = .ContinuousAutoFocus
+                }
+                if device.autoFocusRangeRestrictionSupported {
+                    device.autoFocusRangeRestriction = .Near
+                }
                 device.unlockForConfiguration()
         }
         
