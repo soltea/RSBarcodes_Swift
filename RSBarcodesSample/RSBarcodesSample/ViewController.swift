@@ -44,7 +44,7 @@ class ViewController: RSCodeReaderViewController {
             println(point)
         }
         
-        barcodesHandler = { [unowned self] barcodes in
+        barcodesHandler = { barcodes in
             for barcode in barcodes {
                 println(barcode)
                 // Add logic here to find the certain barcode you are looking for
