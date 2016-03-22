@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -14,7 +15,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="vXZ-lx-hvc" kind="relationship" relationship="rootViewController" id="zRg-bt-GP7"/>
+                        <segue destination="vr9-RA-EcL" kind="relationship" relationship="rootViewController" id="RcI-Qs-VJJ"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FOU-Vp-bzC" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -30,7 +31,7 @@
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="560" height="200"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LZw-KE-djz">
@@ -49,7 +50,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F3M-sF-FTl">
-                                <rect key="frame" x="500" y="0.0" width="100" height="100"/>
+                                <rect key="frame" x="460" y="0.0" width="100" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="hXg-QZ-2kt"/>
                                     <constraint firstAttribute="height" constant="100" id="tTo-qA-mBl"/>
@@ -64,7 +65,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J7U-nj-ahi">
-                                <rect key="frame" x="0.0" y="500" width="100" height="100"/>
+                                <rect key="frame" x="0.0" y="100" width="100" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="DCu-5S-dvW"/>
                                     <constraint firstAttribute="width" constant="100" id="bkL-kg-QRH"/>
@@ -99,7 +100,42 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="61" y="222"/>
+            <point key="canvasLocation" x="39" y="806"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="4ap-NQ-lJs">
+            <objects>
+                <viewController id="vr9-RA-EcL" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="b5G-1R-jcH"/>
+                        <viewControllerLayoutGuide type="bottom" id="4bu-sm-NYV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Q5A-RW-Ubf">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mx9-Ry-OZm">
+                                <rect key="frame" x="20" y="20" width="560" height="200"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="75I-1h-Bwo"/>
+                                </constraints>
+                                <connections>
+                                    <segue destination="vXZ-lx-hvc" kind="embed" id="s6k-oU-81l"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="mx9-Ry-OZm" firstAttribute="leading" secondItem="Q5A-RW-Ubf" secondAttribute="leadingMargin" id="JzP-xB-FYE"/>
+                            <constraint firstItem="mx9-Ry-OZm" firstAttribute="top" secondItem="b5G-1R-jcH" secondAttribute="bottom" id="fGX-rr-n7T"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="mx9-Ry-OZm" secondAttribute="trailing" id="hre-lP-SJg"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="wEV-3g-ieE"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6cP-90-fVF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="39" y="222"/>
         </scene>
         <!--Barcode Display View Controller-->
         <scene sceneID="d7V-Tz-Nfv">
@@ -110,11 +146,11 @@
                         <viewControllerLayoutGuide type="bottom" id="vgL-k5-esu"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="i2i-UM-QRj">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="560" height="200"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="yy2-vg-1Vq">
-                                <rect key="frame" x="200" y="250" width="200" height="100"/>
+                                <rect key="frame" x="180" y="50" width="200" height="100"/>
                                 <accessibility key="accessibilityConfiguration" identifier="imageDisplayed"/>
                                 <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="0.0"/>
                                 <constraints>
