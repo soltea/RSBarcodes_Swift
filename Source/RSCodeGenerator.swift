@@ -15,11 +15,11 @@ let DIGITS_STRING = "0123456789"
 
 // Controls the amount of additional data encoded in the output image to provide error correction.
 // Higher levels of error correction result in larger output images but allow larger areas of the code to be damaged or obscured without.
-public enum InputCorrectionLevel: String {
-    case Low = "L"     // 7%
-    case Medium = "M"  // 15% default
-    case Quarter = "Q" // 25%
-    case High = "H"    // 30%
+public enum InputCorrectionLevel: Int {
+    case Low    = 7     // 7%
+    case Medium = 15    // 15% default
+    case Quarter= 25    // 25%
+    case High   = 30    // 30%
 }
 
 // Code generators are required to provide these two functions.
